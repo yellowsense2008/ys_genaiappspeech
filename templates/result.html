@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Maid Recommendation Chat - Result</title>
+    <style>
+        /* Your CSS styles here */
+        body, h1, div {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FFFF99; /* Lemon Yellow */
+            text-align: center;
+        }
+
+        h1 {
+            background-color: #FFD700; /* Gold */
+            color: #fff; /* White */
+            padding: 20px;
+            margin: 0;
+        }
+
+        /* Style for the recommendation cards */
+        .recommendation-card {
+            background-color: #FFFFE9; /* Mellow Yellow */
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid #FFD700; /* Gold border */
+            border-radius: 5px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>Maid Recommendation Chat - Result</h1>
+    {{ answer|safe }}
+</body>
+</html>

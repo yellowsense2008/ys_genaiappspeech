@@ -1,0 +1,7 @@
+flask
+langchain
+unstructured
+unstructured[pdf] 
+sentence-transformers
+chromadb==0.3.29
+openai

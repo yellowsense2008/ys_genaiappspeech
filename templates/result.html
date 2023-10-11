@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Maid Recommendation Chat - Result</title>
     <style>
-        /* Your CSS styles here */
         body, h1, div {
             margin: 0;
             padding: 0;
@@ -12,30 +12,106 @@
 
         body {
             font-family: Arial, sans-serif;
-            background-color: #FFFF99; /* Lemon Yellow */
+            background-color: #FFFF99;
             text-align: center;
         }
 
         h1 {
-            background-color: #FFD700; /* Gold */
-            color: #fff; /* White */
+            background-color: #FFD700;
+            color: #fff;
             padding: 20px;
             margin: 0;
         }
 
-        /* Style for the recommendation cards */
         .recommendation-card {
-            background-color: #FFFFE9; /* Mellow Yellow */
+            background-color: #FFFFE9;
             padding: 10px;
             margin: 10px;
-            border: 1px solid #FFD700; /* Gold border */
+            border: 1px solid #FFD700;
             border-radius: 5px;
             text-align: left;
         }
+
+        .hear-answer {
+            display: inline-block;
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .hear-answer:hover {
+            background-color: #2980b9;
+        }
+
+        #loadingContainer {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        #loadingMessage {
+            margin-top: 10px;
+        }
+
+        .loader {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin-top: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
+
 <body>
     <h1>Maid Recommendation Chat - Result</h1>
-    {{ answer|safe }}
+    <div>
+        <h2>Processed Answer</h2>
+        {{ processed_answer|safe }}
+    </div>
+    <div>
+        <h2>Translated Processed Answer</h2>
+        {{ translated_processed_answer|safe }}
+    </div>
+
+    <div id="loadingContainer">
+        <div id="loadingMessage">Loading Audio....</div>
+        <div class="loader"></div>
+    </div>
+
+    <audio controls id="audioPlayer">
+        <source src="{{ audio_url }}" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <a href="{{ url_for('play_speech', translated_processed_answer=translated_processed_answer, selected_language=selected_language) }}" class="hear-answer" onclick="showLoading()">Hear Your Answer</a>
+
+    <button id="refreshButton" onclick="refreshPage()">Refresh Page</button>
+
+    <script>
+        function refreshPage() {
+            window.location.href = "/";
+        }
+
+        function showLoading() {
+            document.getElementById('loadingContainer').style.display = 'flex';
+        }
+
+        document.getElementById('audioPlayer').addEventListener('canplay', function() {
+            document.getElementById('loadingContainer').style.display = 'none';
+        });
+    </script>
 </body>
+
 </html>
